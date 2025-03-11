@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>PDF Converter - ADD PAGE NUMBER</title>
+    <style>
+        nav a {
+            font-size: 1rem;
+            text-align: uppercase;
+        }
+        
+        
+        .custom-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .upload-btn {
+            display: inline-block;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            text-align: center;
+            height: 50px;
+            width: 450px;
+            border: none;
+            outline: none;
+        }
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+        #fileInput {
+            display: none; 
+        }
+
+    
+    </style>
+</head>
+<body>
+    
+    <header class="py-4 custom-header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}" class="text-decoration-none text-white">
+                <h1><b>PDF CONVERTER</b></h1>
+            </a>
+            <h3><b> ADD PAGE NUMBER </b></h3>
+            <nav>
+                <a href="{% url 'home' %}" class="btn btn-outline-light me-2">HOME</a>
+                <a href="{% url 'signin' %}" class="btn btn-outline-light">SIGN-IN</a>
+                <a href="{% url 'contact_us' %}" class="btn btn-outline-light">CONTACT US</a>
+            </nav>
+        </div>
+    </header>
+
+    
+    <main class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card custom-card text-center" style="max-width: 600px; width: 100%;">
+            <div class="card-body">
+                <p >Add Page Number  On PDF Files</p>
+               <form action="{% url 'add_page_number' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <label for="fileInput" class="upload-btn">Choose PDF Files</label>
+                    <input type="file" id="fileInput" name="files" onchange="this.form.submit();">
+            </div>
+        </div>
+    </main>
+    
+
+    
+    <footer class="py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 PDF Converter. All rights reserved. <a href="#">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileNameDisplay = document.getElementById('file-name');
+        const pdfForm = document.getElementById('pdfForm');
+
+        
+        fileInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+
+            if (file) {
+               
+                if (file.type === 'application/pdf') {
+                    fileNameDisplay.textContent = `Selected File: ${file.name}`;
+                    
+                    pdfForm.submit();
+                } else {
+                    fileNameDisplay.textContent = 'Invalid file format. Please upload a PDF file.';
+                    fileNameDisplay.style.color = 'red';
+                    
+                    this.value = '';
+                }
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
+
+   

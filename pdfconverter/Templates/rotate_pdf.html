@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>PDF Converter - ROTATE PDF</title>
+    <style>
+        .custom-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-curved {
+            border-radius: 30px;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            text-align: center;
+            height: 46px;
+            width: 450px;
+            border: none;
+            outline: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="py-4 custom-header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}" class="text-decoration-none text-white">
+                <h1><b>PDF CONVERTER</b></h1>
+            </a>
+            <h3><b>ROTATE PDF</b></h3>
+            <nav>
+                <a href="{% url 'home' %}" class="btn btn-outline-light me-2">Home</a>
+                <a href="{% url 'signin' %}" class="btn btn-outline-light">Sign In</a>
+                <a href="{% url 'contact_us' %}" class="btn btn-outline-light">CONTACT US</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card custom-card text-center" style="max-width: 600px; width: 100%;">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Rotate PDF Pages</h4>
+                <form action="{% url 'rotate' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  
+                    <div class="mb-3">
+                        <label for="fileInput" class="upload-btn btn btn-outline-primary w-100">
+                            Choose PDF File
+                        </label>
+                        <input type="file" id="fileInput" name="file" class="form-control d-none" multiple required>
+                    </div>
+    
+                    
+                    <div class="mb-3">
+                        <label for="rotation" class="form-label">Select Rotation Direction:</label>
+                        <select id="rotation" name="rotation" class="form-select" required>
+                            <option value="clockwise">Clockwise</option>
+                            <option value="counterclockwise">Counterclockwise</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        <label for="degrees" class="form-label">Enter Degrees (90, 180, 270):</label>
+                        <input type="number" id="degrees" name="degrees" class="form-control" placeholder="e.g., 90" required>
+                    </div>
+
+                    
+                    <button type="submit" class="btn btn-primary btn-curved w-100">Rotate PDF</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 text-center">
+        <div class="container">
+            <p>&copy; 2024 PDF Converter. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const uploadLabel = document.getElementById('uploadLabel');
+            const form = document.getElementById('rotateForm');
+
+            
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    uploadLabel.textContent = fileInput.files[0].name;
+                } else {
+                    uploadLabel.textContent = "Choose PDF File";
+                }
+            });
+
+            
+            form.addEventListener('submit', (event) => {
+                const degreesInput = document.getElementById('degrees').value;
+                const rotation = document.getElementById('rotation').value;
+
+                
+                if (![90, 180, 270].includes(parseInt(degreesInput))) {
+                    alert("Invalid degrees! Please enter 90, 180, or 270.");
+                    event.preventDefault();
+                }
+
+                
+                if (!rotation) {
+                    alert("Please select a rotation direction.");
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

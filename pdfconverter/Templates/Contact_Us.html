@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <title>Sign In | PDF Converter</title>
+    <style>
+        
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f7f6;
+        }
+
+        
+        header {
+            background: linear-gradient(90deg, #6a5acd, #eb0f0f);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header a {
+            text-decoration: none;
+            color: white;
+        }
+
+        nav a {
+            font-size: 1rem;
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            padding: 8px 12px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            border-color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        
+        .feedback-section {
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .feedback-section p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feedback-section form {
+            max-width: 500px;
+            width: 100%;
+            background-color: #f4f7f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-section label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #6a5acd;
+            text-align: left;
+        }
+
+        .feedback-section input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .feedback-section input:focus {
+            border-color: #6a5acd;
+            outline: none;
+            box-shadow: 0 0 5px rgba(106, 90, 205, 0.5);
+        }
+
+        .feedback-section button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6a5acd;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .feedback-section button:hover {
+            background-color: #eb0f0f;
+        }
+
+        
+        footer {
+            background: #2f4f4f;
+            color: #b0c4de;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #6a5acd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <a href="{% url 'home' %}">
+            <h1><b>PDF CONVERTER</b></h1>
+        </a>
+        <nav>
+            <a href="{% url 'home' %}" class="btn btn-outline-light">HOME</a>
+            <a href="{% url 'signin' %}" class="btn btn-outline-light">SIGN-IN</a>
+        </nav>
+    </header>
+
+    
+    <main>
+        <section class="feedback-section">
+            <form action="{% url 'contact_us' %}" method="POST">
+                {% csrf_token %}
+                <p>We value your feedback! Please share your experience with us.</p>
+                <p>Have any queries or concerns about your site or membership? Let us know!</p>
+
+                <label for="queries">Any Queries or Suggestions</label>
+                <input id="queries" name="suggestion" type="text" placeholder="Enter your suggestion or query" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    
+    <footer>
+        <p>&copy; 2024 PDF Converter. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const feedbackForm = document.getElementById('feedbackForm');
+            const queryInput = document.getElementById('queries');
+
+            feedbackForm.addEventListener('submit', (e) => {
+                
+                e.preventDefault();
+
+                
+                if (!queryInput.value.trim()) {
+                    alert('Please enter your query or suggestion.');
+                    return;
+                }
+
+                
+                alert('Thank you for your feedback! Your query/suggestion has been submitted.');
+
+                
+                feedbackForm.submit();
+            });
+        });
+    </script>
+</body>
+</html>

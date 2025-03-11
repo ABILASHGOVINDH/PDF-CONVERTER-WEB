@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>PDF Converter</title>
+    <style>
+           
+       
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+                
+            
+            #fileInput {
+                position: none;
+                cursor: pointer;
+                opacity: 0;
+                z-index: 1;
+            }
+
+            label[for="fileInput"] {
+                background-color: transparent;
+                border: 2px dashed #6a5acd;
+                padding: 15px 30px;
+                color: #6a5acd;
+                font-size: 1.2rem;
+                font-weight: bold;
+                border-radius: 10px;
+                transition: all 0.3s ease-in-out;
+            }
+
+            label[for="fileInput"]:hover {
+                background-color: #6a5acd; 
+                color: white;
+                border-color: white; 
+            }
+
+            
+            .hero:hover label[for="fileInput"] {
+                transform: scale(1.1);
+                background-color:0; 
+                color: white; 
+                opacity: 1; 
+            }
+
+        .hero {
+            background-color: #ffffff; 
+            color: #2f4f4f; 
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color:  #eb0f0f; 
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 1;
+            color: #6a5acd #eb0f0f; 
+        }
+        
+        .hero button {
+            border: 2px solid #6a5acd  #eb0f0f;
+            padding: 10px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            background: transparent;
+            color: #6a5acd  #eb0f0f;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .hero button:hover {
+            background-color: #6a5acd  #eb0f0f; 
+            color: white; 
+        }
+
+        
+        .products {
+            background: #e6f7ff; 
+            padding: 50px 0;
+            padding-top: 50px;
+        }
+
+        .products h2 {
+            color: #006f8c; 
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-size:1.5rem;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            background-color: #ffffff; 
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: #006f8c;
+        }
+
+        .card-text {
+            color: #4b6c82; 
+        }
+
+        
+        footer {
+            background: #2f4f4f; 
+            color: #b0c4de; 
+            padding: 20px 0;
+            margin-top: 20px; 
+        }
+
+        footer a {
+            color: #6a5acd; 
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+        a {
+            text-decoration: none;
+         }
+                    .btn-primary {
+                        background-color: #6a5acd;
+                        border-color: #6a5acd;
+                        padding: 12px 30px; 
+                        border-radius: 25px; 
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 12px rgba(106, 90, 205, 0.5);
+            }
+
+            .card-title {
+                font-size: 1.1rem;
+                font-weight: bold;
+                color: #2f4f4f;
+            }
+
+            .card:hover {
+                transform: scale(1.02);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            .menu-container {
+                position: relative;
+                display: inline-block;
+            }
+
+    .menu-button {
+        background-color:transparent;
+        color:white;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+   
+    .menu-dropdown {
+        display: none;
+        position: absolute;
+        top: 30px;
+        right: 0;
+        background-color:white;
+        box-shadow: 0px 8px 16px rgba(213, 204, 204, 0.2);
+        border-radius: 5px;
+        z-index: 1000;
+        min-width: 160px;
+        right: 10px;
+        top: 40px; 
+    }
+
+    .menu-dropdown a {
+        color:black;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .menu-dropdown a:hover {
+        background-color: #e9dede;
+    }
+
+    
+    .menu-container:hover .menu-dropdown {
+        display: block;
+    }
+
+
+        .hero {
+            text-align: center;
+            padding: 70px 20px;
+            background-color: #fff;
+            color: #333;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #eb0f0f;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #6a5acd;
+        }
+
+        .features {
+            padding: 50px 0;
+            background-color: #f4f7f6;
+        }
+        .feature-box {
+            text-align: center;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .feature-box i {
+            font-size: 2rem;
+            color: #6a5acd;
+            margin-bottom: 15px;
+        }
+        .feature-box h5 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .feature-box p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+   
+
+.steps-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 30px auto;
+    width: 80%;
+}
+
+.steps-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step {
+    font-size: 16px;
+    padding: 15px 10px;
+    margin: 0 10px;
+    flex: 0 1 auto; 
+}
+
+/* .step p {
+    margin: 0;
+}
+
+.step strong {
+    color: #ff5722; 
+    font-size: 18px;
+}
+
+.arrow {
+    font-size: 24px;
+    margin: 0 10px;
+    color: #ff5722;
+} */
+  .message {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="py-3 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+                <h1 class="text-white"><b>PDF CONVERTER</b></h1>
+            </a>  
+            
+            <nav>
+                <ul class="nav">
+                    <nav>
+                        
+                        <div class="menu-container">
+                            
+                            <button class="menu-button">☢</button>
+                    
+                            
+                            <div class="menu-dropdown">
+                                <a href="{% url 'merge' %}">Merge PDF</a>
+                                <a href="{% url 'remove' %}">Remove PDF</a>
+                                <a href="{% url 'rotate' %}">Rotate PDF </a>
+                                <a href="{% url 'add_page_number' %}">Add Page Numbers to PDF</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link text-white">HOME</a></li>
+                    <li class="nav-item"><a href="{% url 'contact_us' %}" class="nav-link text-white">CONTACT US</a></li>
+                    <li class="nav-item"><a href="{% url 'signin' %}" class="btn btn-outline-light">SIGN IN</a></li>
+                </ul>
+            </nav> 
+
+    
+        </div>
+    </header>
+
+    
+    <section class="hero">
+        <h1>Transform Files</h1>
+        <p>Quick, secure, and reliable PDF conversions at your fingertips.🚀</p>
+        <form>
+            {% csrf_token %}
+            <center>
+                <label for="fileInput" class="btn btn-primary btn-lg mt-4">Choose File</label>
+                <input type="file" id="fileInput" name="file" accept=".docx, .xlsx, .jpg, .jpeg, .png, .ppt, .pptx, .epub, .mob, .pages, .numbers" style="display:none;">
+            </center>
+    </section>
+    
+     
+        
+    <div class="steps-container">
+        <h2>How to Convert Files </h2>
+        <div class="steps">
+            <div class="step">
+                <p><strong>1.</strong> Select the file you want to convert.</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+                <p><strong>2.</strong> Click the <strong>"Convert"</strong> button.</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+                <p><strong>3.</strong> Download your converted file instantly.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <section class="hero">
+        <h1>Convert PDF Files Easily</h1>
+        <p>Simple, Secure, and Reliable PDF Conversion Tools</p>
+        <button class="btn btn-primary mt-3">Get Started</button>
+    </section>
+
+    
+    <section id="features" class="features">
+        <div class="container">
+            <div class="row gy-4">
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="bi bi-trophy"></i>
+                        <h5>The Best PDF  Converter</h5>
+                        <p>
+                            Convert your PDF files to editable PowerPoint presentations within seconds,
+                            while retaining the original formatting and structure.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="bi bi-globe"></i>
+                        <h5>Accessible Online Service</h5>
+                        <p>
+                            Use our tools online from any device, anytime. No installation required—just upload your file and convert instantly.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="bi bi-tools"></i>
+                        <h5>Available Tools</h5>
+                        <p>
+                            A suite of tools, including file merging, compression, splitting, and rotating,
+                            to make PDF management effortless and efficient.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="bi bi-shield-lock"></i>
+                        <h5>Secure Downloads & Information</h5>
+                        <p>
+                            Your uploaded files are encrypted using 256-bit SSL technology.
+                            Your information stays private and secure during every step.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="bi bi-trash"></i>
+                        <h5>Automatic File Deletion</h5>
+                        <p>
+                            Uploaded files are automatically deleted from our servers after a short time,
+                            ensuring your data is safe and private.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="bi bi-lightbulb"></i>
+                        <h5>Step-by-Step Guide</h5>
+                        <p>
+                            Follow our intuitive step-by-step instructions to convert files quickly.
+                            No technical skills required—it's simple and user-friendly!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="container text-center">
+            <h2>CONVERTING TOOLS</h2>
+            <div class="row g-4">
+               
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'word_to_pdf' %}">
+                        <img src="{% static 'image\icons8-word-64.png'%}" alt="word Icon" width="64" height="64" class="mb-3 mx-auto d-block">
+                        <h5 class="card-title">Word to PDF</h5>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'pdf_to_word' %}">
+                        <img src="{% static 'image\icons8-word-64.png'%}" alt="word Icon" width="64" height="64" class="mb-3 mx-auto d-block">
+                        <h5 class="card-title">PDF to Word</h5>
+                        </a>
+                    </div>
+                </div>
+                 
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'ppt_to_pdf' %}">
+                        <img src="{%static 'image\ppt.png' %}" alt="PowerPoint Icon" widht="64" height="64" class="mb-3 mx-auto d-block">
+                        <h5 class="card-title">POWER POINT to PDF</h5>
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'pdf_to_ppt' %}">
+                        <img src="{% static 'image\ppt.png' %}" alt="PowerPoint Icon" widht="64" height="64" class="mb-3 mx-auto d-block">
+                        
+                        <h5 class="card-title">PDF  to  POWER POINT</h5>
+                    </a>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'excel_to_pdf' %}">
+            
+                        <img src="{% static 'image/icons8-excel-96.png' %}" alt="Excel Icon" width="64" height="64" class="mb-3 mx-auto d-block">
+                        <h5 class="card-title">Excel to PDF</h5>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'pdf_to_excel' %}">
+                        <img src="{% static 'image/icons8-excel-96.png'%}" alt="Excel Icon" widht="64" height="64" class="mb-3 mx-auto d-block">
+                        
+                        <h5 class="card-title">PDF TO EXCEL</h5>
+                    </a>
+                    </div>
+                </div>
+                
+                 
+                 <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'jpg_to_pdf' %}">
+                        <img src="{% static 'image\jpg-file (1).png' %}" alt="JPG Icon" widht="64" widht="64" class="mb-3 mx-auto d-block">
+                       
+                        <h5 class="card-title">JPG to PDF</h5>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="card p-3">
+                        <a href="{% url 'pdf_to_png' %}">
+                        <img src="{% static 'image\png-file-.png' %}" alt="PNG Icon" width="64" height="64" class="mb-3 mx-auto d-block">
+                        <h5 class="card-title">PDF to PNG</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+     <footer>
+        <p>&copy; 2024 PDF Converter. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

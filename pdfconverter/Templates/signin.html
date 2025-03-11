@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/bootstrap-5.3.3-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Sign In</title>
+    <style>
+header a {
+    text-decoration: none; 
+    text-align: center;
+}
+
+        
+        header h2{
+            margin:0;
+            font-size:1.5rem;
+            text-align:center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+        }
+
+        .login {
+            background-color: #ffffff;
+            color: #2f4f4f;
+            height: 100vh;
+            display: flex;
+            justify-content: middle;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            text-align: top;
+        }
+
+        .login h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #6a5acd; 
+        }
+
+        
+.login form {
+    width: 90%; 
+    max-width: 400px; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 8px;
+    background-color: #fff; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.login label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+    text-align: left;
+    width: 100%; 
+}
+
+.login input {
+    width: 90%; 
+    max-width: 350px; 
+    height: 24px; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px; 
+    font-size: 1rem;
+    color: #333;
+}
+
+.login input:focus {
+    border-color: #6a5acd; 
+    outline: none;
+    box-shadow: 0 0 5px rgba(106, 90, 205, 0.5); 
+}
+
+.login button {
+    width: 100%;
+    max-width: 300px; 
+    height: 50px; 
+    background-color: #6a5acd;
+    border: none;
+    border-radius: 8px; 
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #7703dd; 
+}
+
+.forgot-password {
+    margin-top: 10px;
+    color: #6a5acd;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+.google-signin-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px; 
+    height: 26px;
+    padding: 10px;
+    margin-top: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.google-signin-btn img {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.google-signin-btn:hover {
+    border-color: #6a5acd;
+}
+
+       
+        footer {
+            background: #2f4f4f; 
+            color: #b0c4de; 
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #6a5acd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+    
+    nav {
+        position: absolute;
+        top: 25px; 
+        right: 20px; 
+    }
+
+</style>
+
+    </style>
+</head>
+<body>
+    <header class="py-3 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+                <b><h1 class="text-white">PDF CONVERTER</h1></b>
+            </a>
+            <b><h2>SIGN IN</h2></b>
+        </div>
+        <nav>
+            <a href="{% url 'home' %}" class="btn btn-outline-light">Home</a>
+            <a href="{% url 'contact_us' %}" class="btn btn-outline-light">Contact Us</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="login">
+            <h1>Sign In</h1>
+            <form action="{% url 'signin' %}" method="POST">
+                {% csrf_token %}
+                <label for="email">Email:</label>
+                <input id="email" name="email" type="email" placeholder="Enter your email" required>
+                
+                <label for="password">Password:</label>
+                <input id="password" name="password" type="password" placeholder="Enter your password" required>
+                
+                <button type="submit">Sign In</button>
+                <a href="{% url 'forgot_password' %}" class="forgot-password">Forgot Password?</a>
+            </form>
+
+            <!-- Google Sign In Button -->
+            <a href="{% url 'social:begin' 'google' %}" class="google-signin-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">
+                Sign In with Google
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 PDF Converter. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+        });
+
+        
+        document.getElementById('signin-form').addEventListener('submit', function (event) {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!email || !password) {
+                alert('Please fill out all fields.');
+                event.preventDefault(); 
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                event.preventDefault(); 
+            }
+        });
+
+      
+        document.querySelector('.google-signin-btn').addEventListener('click', function () {
+            alert('Redirecting to Google Sign-In...');
+        });
+    </script>
+</body>
+</html>

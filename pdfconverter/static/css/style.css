@@ -1,0 +1,77 @@
+ .text-white{
+    color:#e6f7ff;
+}
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    background-color: #f4f7f6; 
+}
+
+header {
+    background: linear-gradient(90deg, #6a5acd, #eb0f0f); /* Calming purple gradient */
+    color: white;
+}
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+ .custom-header {
+    background: linear-gradient(90deg, #6a5acd, #eb0f0f);
+    color: white;
+}
+.custom-header, .custom-header h3 {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+.custom-header h1 {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+.custom-header h3 {
+    color: #e0ffff;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+} 
+
+nav a {
+font-size: 1rem;
+color: white;
+text-decoration: none;
+margin-right: 15px;
+padding: 8px 12px;
+border: 2px solid transparent;
+border-radius: 5px;
+transition: 0.3s;
+}
+
+nav a:hover {
+border-color: white;
+background-color: rgba(255, 255, 255, 0.2);
+} 
+
+footer {
+    background: #2f4f4f; /* Dark slate gray for footer */
+    color: #b0c4de; /* Light slate gray text */
+    padding: 20px 0;
+    margin-top: 20px; /* Pushes the footer a little down */
+}
+
+footer a {
+    color: #6a5acd; /* Purple links */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
